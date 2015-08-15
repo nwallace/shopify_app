@@ -35,7 +35,9 @@ module ShopifyApp
 
     def authenticate
       if shop_name = sanitize_shop_param(params)
-        fullpage_redirect_to "#{main_app.root_path}auth/shopify?shop=#{shop_name}"
+        relative_root = main_app.root_path
+        relative_root += "/" unless relative_root.end_with?("/")
+        fullpage_redirect_to "#{relative_root}auth/shopify?shop=#{shop_name}"
       else
         redirect_to return_address
       end
